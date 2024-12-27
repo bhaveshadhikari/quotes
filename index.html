@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quotes</title>
+    <style>
+        body {
+            background-color:#232323;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            overflow-y:hidden;
+            display: flex;
+            height: 100vh;
+           
+        }
+        .container {
+            font-family: Georgia, serif;
+            margin:auto;
+            width:50%;
+            padding:20px;
+           
+            color:white;
+            font-size: 30px;
+            font-weight:500;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                width: 80%;
+            }
+        }
+        .notes{
+            margin-top:50px;
+            font-family: system-ui, sans-serif;
+            font-size:20px;
+            color:orange;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+    <p id="quote">Loading random quote...</p>
+    <div class="notes">Get back to work, my man!!</div>
+    
+    </div>
+ 
+
+
+    <script>
+        // Array of random quotes
+        fetch('quotes.txt')
+            .then(response => response.text())
+            .then(data => {
+                // Split the content by newlines to get an array of quotes
+                const quotes = data.split('\n').map(quote => quote.trim());
+
+                // Select a random quote from the array
+                const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+
+                // Display the random quote
+                document.getElementById("quote").textContent = randomQuote;
+            })
+            .catch(error => {
+                console.error("Error loading the quotes:", error);
+                document.getElementById("quote").textContent = "Failed to load quotes.";
+            });
+    </script>
+</body>
+</html>
